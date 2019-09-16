@@ -1,0 +1,45 @@
+﻿@model BatemanCafeteria.ViewModels.OrderStatusViewModel
+@{
+    ViewBag.Title = "Order Status";
+}
+
+<div class="flex flex-column">
+    <div>
+        <h4>Have an order?</h4>
+        <hr />
+        <h5>Enter the order number below to check the status of your order.</h5>
+        <h6>
+            @ViewBag.Error
+        </h6>
+        @using (Html.BeginForm("GetOrderStatus", "Home"))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @min = "0", @Value = "0" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Go!" class="btn btn-primary" id="submitButton"/>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="status">
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var url = '@Url.Action("GetOrderStatus", "Home")';
+        $('form').submit(function () {
+            if (!$(this).valid()) {
+                return false;
+            }
+            var value = $(this).serialize();
+            $('#status').load(url, value);
+            return false;
+        })
+    });
+</script>

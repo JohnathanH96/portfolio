@@ -1,0 +1,68 @@
+﻿@model BatemanCafeteria.ViewModels.AddToCartViewModel
+@Html.Partial("_ModalExit")
+
+<div class="modal-body">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => Model.MenuItem.Title)
+            @Html.HiddenFor(model => Model.MenuItem.Price)
+            @Html.HiddenFor(model => Model.MenuItem.MenuID)
+            @Html.HiddenFor(model => Model.MenuItem.ImgLocation)
+            @Html.HiddenFor(model => Model.MenuItem.Description)
+            @Html.HiddenFor(model => Model.MenuItem.CategoryId)
+            @Html.HiddenFor(model => Model.MenuItem.Calories)
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="img-area">
+                        <img src="@Model.MenuItem.ImgLocation" alt="@Model.MenuItem.Title" style="width: 100%"/>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <h4>@Model.MenuItem.Title</h4>
+                    <hr />
+                    <div class="description padding-bottom-medium">@Model.MenuItem.Description</div>
+                    <div class="col-md-12 padding-bottom-large">
+                        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-7 align-left" })
+                        <div class="col-md-5">
+                            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @min = "1", @Value = "1" } })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        @Html.LabelFor(model => model.MenuItem.Calories, htmlAttributes: new { @class = "control-label col-md-7 align-left" })
+                        <div class="col-md-5">@Model.MenuItem.Calories</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div>
+                        @Html.LabelFor(model => model.SpecialInstructions, "Special Instructions", htmlAttributes: new { @class = "control-label col-md-12 align-left padding-bottom-small" })
+                    </div>
+                    <div class="col-md-12">
+                        @Html.TextAreaFor(model => model.SpecialInstructions, new { maxlength = "250", placeholder = "Enter any special instructions (250 char max)..", htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SpecialInstructions, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Add To Cart" class="btn btn-primary" id="approve-btn" />
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#approve-btn').click(function () {
+            $('#modal-container').modal('hide');
+        });
+    });
+</script>

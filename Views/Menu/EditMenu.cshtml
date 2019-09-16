@@ -1,0 +1,92 @@
+﻿@model BatemanCafeteria.ViewModels.EditMenuViewModel
+<div class="btn btn-primary">
+    <a href="@Url.Action("Create", "Menu")" class="modal-link">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>
+            <strong>Create</strong>
+        </span>
+    </a>
+</div>
+<div class="row flex">
+
+    @foreach (var item in Model.Item)
+    {
+        <div class="col-md-4">
+            <div class="menuitem">
+                <div class="menu-img">
+                    <img src="@item.ImgLocation" alt="@item.Title" />
+                </div>
+                <h4>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </h4>
+
+                <h5>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </h5>
+                <div>
+                    <div class="col-md-6">
+                        <h6>
+                            Calories:
+                        </h6>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>
+                            @Html.DisplayFor(modelItem => item.Calories)
+                        </h6>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-6">
+                        <h5>
+                            Price:
+                        </h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>
+                            $@Html.DisplayFor(modelItem => item.Price)
+                        </h5>
+                    </div>
+                </div>
+                @if (item.FoodCategory.Category == "DailySpecial")
+                {
+                    if (Model.DailySpecial.Find(x => x.MenuID == item.MenuID).Active == true)
+                    {
+                        <label class="switch">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <input type="checkbox" id="@item.MenuID" checked />
+                            <span class="slider round"></span>
+                        </label>
+
+                    }
+                    else
+                    {
+                        <label class="switch">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                            <input type="checkbox" id="@item.MenuID" />
+                            <span class="slider round"></span>
+                        </label>
+                    }
+
+                }
+                <div class="col-md-12 menu-options">
+                    <div class="col-md-6 align-right">
+                        <a href="@Url.Action("Edit", "Menu", new { id = item.MenuID })" class="modal-link">
+                            <i class="glyphicon glyphicon-edit" style="color: rgba(0, 0, 0, 0.5)"></i>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Delete", "Menu", new { id = item.MenuID })" class="modal-link">
+                            <i class="glyphicon glyphicon-trash" style="color: rgba(0, 0, 0, 0.5)"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(':checkbox').click(function () {
+        var id = $(this).attr('id');
+        $.post('/Menu/ToggleDailySpecial', { 'id': id });
+    });
+</script>

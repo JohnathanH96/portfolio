@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - MMB Cafeteria</title>
+    <link runat="server" rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link runat="server" rel="icon" href="favicon.ico" type="image/ico" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/jquery-ui-1.12.1.js")
+    @RenderSection("scripts", required: false)
+    <link href="~/Content/wickedpicker.min.css" rel="stylesheet" />
+    <script src="~/Scripts/wickedpicker.min.js"></script>
+
+</head>
+
+<body>
+    @if (this.User.IsInRole("Caf_Secretary"))
+    {
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">
+                        <img src="~/Images/logo.png" alt="Bateman Cafeteria">
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <div class="black-line-underline-left">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>@Html.ActionLink("Catering Order", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Edit Menu", "EditIndex", "Menu")</li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                    <div class="black-line-underline-right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Manage Orders", "ManageOrders", "Secretary")</li>
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="@Url.Action("Index", "Manage", routeValues: null)"><img src="~/Images/user.png" class="manage-account" /></a>
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><img src="~/Images/shutdown.png" class="logoff" /></a>
+
+                                }
+                            </li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else if (this.User.IsInRole("Caf_Admin"))
+    {
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">
+                        <img src="~/Images/logo.png" alt="Bateman Cafeteria">
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <div class="black-line-underline-left">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a style="font-style: italic; user-select: none; -ms-user-select: none;">Admin Portal</a></li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                    <div class="black-line-underline-right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <a href="@Url.Action("Index", "Manage", routeValues: null)"><img src="~/Images/user.png" class="manage-account" /></a>
+                                    <a href="javascript:document.getElementById('logoutForm').submit()"><img src="~/Images/shutdown.png" class="logoff" /></a>
+
+                                }
+                            </li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">
+                        <img src="~/Images/logo.png" alt="Bateman Cafeteria">
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <div class="black-line-underline-left">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>@Html.ActionLink("Menu", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                    <div class="black-line-underline-right">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>@Html.ActionLink("Order Status", "OrderStatus", "Home")</li>
+                            <li id="#cart">
+                                @{Html.RenderAction("CartSummary", "ShoppingCart");}
+                            </li>
+                        </ul>
+                        <div class="black-line"></div>
+                        <div class="green-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="container body-content">
+        <div class="alert-danger"> @ViewBag.Errors</div>
+        @RenderBody()
+        <hr />
+        <footer>
+            <h4>Hours of Operation</h4>
+            <div class="h4">7am - 2pm</div>
+        </footer>
+        <div id="modal-container" class="modal fade"
+             tabindex="-1" role="dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('body').on('click', '.modal-link', function (e) {
+                    e.preventDefault();
+                    $(this).attr('data-target', '#modal-container');
+                    $(this).attr('data-toggle', 'modal');
+                });
+                $('body').on('click', '.modal-close-btn', function () {
+                    $('#modal-container').modal('hide');
+                });
+                $('#modal-container').on('hidden.bs.modal', function () {
+                    $(this).removeData('bs.modal');
+                });
+                $('#CancelModal').on('click', function () {
+                    return false;
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+

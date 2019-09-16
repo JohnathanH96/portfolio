@@ -1,0 +1,39 @@
+﻿@model IEnumerable<BatemanCafeteria.ViewModels.ImageViewModel>
+
+<h2>Manage Images</h2>
+<p>
+    @Html.ActionLink("<< Go back", "Index", "Admin")
+</p>
+
+<div class="row flex">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="menuitem">
+                <div class="menu-img">
+                    <img src="@item.ImagePath" alt="@item.ImagePath" />
+                </div>
+                <h4>
+                    @Html.DisplayFor(modelItem => item.ImageName)
+                </h4>
+                @if (item.IsBeingUsed)
+                {
+                    <div class="flex alert-danger" style="padding: 10px; justify-content: space-around;">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i>
+                        <p style="display: inline-block">This image is being used in the menu and cannot be deleted.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="padding-top-large">
+                        <a href="@Url.Action("DeleteImage", new { imagePath = item.ImagePath })" class="btn btn-danger modal-link">
+                            Delete<i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+</div>

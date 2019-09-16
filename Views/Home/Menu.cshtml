@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BatemanCafeteria.Models.Caf_MenuItemModel>
+@if (User.IsInRole("Caf_Secretary"))
+{
+    <div class="row flex center-items padding-top-medium">
+        <div id="#cart">
+            @{Html.RenderAction("CartSummary", "ShoppingCart");}
+        </div>
+    </div>
+    <hr />
+}
+<div class="row flex">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="menuitem">
+                <div class="menu-img">
+                    <img src="@item.ImgLocation" alt="@item.Title" />
+                </div>
+                <h4>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </h4>
+
+                <h5>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </h5>
+                <div>
+                    <div class="col-md-6">
+                        <h6>
+                            Calories:
+                        </h6>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>
+                            @Html.DisplayFor(modelItem => item.Calories)
+                        </h6>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-md-6">
+                        <h5>
+                            Price:
+                        </h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>
+                            $@Html.DisplayFor(modelItem => item.Price)
+                        </h5>
+                    </div>
+                </div>
+                <div class="btn btn-primary">
+                    @Html.ActionLink("Add To Cart", "AddToCart", "ShoppingCart", new { id = item.MenuID }, new { @class = "modal-link" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

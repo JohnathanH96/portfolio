@@ -1,0 +1,24 @@
+﻿@model BatemanCafeteria.ViewModels.ImageViewModel
+@Html.Partial("_ModalExit")
+<div class="modal-body">
+    <h3>Are you sure you want to delete this image?</h3>
+    <div>
+        <hr />
+        <div style="display: flex; width: 100%; height: 350px;">
+            <img style="display: block; width: auto; max-height: 100%; margin-left: auto; margin-right: auto;" src="@Model.ImagePath" alt="@Model.ImageName" />
+        </div>
+        @using (Html.BeginForm("DeleteImage", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ImagePath)
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-actions">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </div>
+                </div>
+                <div class="col-md-6"><a class="btn btn-primary modal-close-btn">Cancel</a></div>
+            </div>
+        }
+    </div>
+</div>

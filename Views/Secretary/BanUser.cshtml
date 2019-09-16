@@ -1,0 +1,28 @@
+﻿@model BatemanCafeteria.Models.Caf_ServiceUsers
+
+@{
+    ViewBag.Title = "BanUser";
+}
+<div class="row">
+    <h2>Ban user</h2>
+    <hr />
+    <h3>Are you sure you want to ban @Model.Username?</h3>
+    <h4>To undo this action you must go through your administrator.</h4>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Username)
+        @Html.HiddenFor(model => model.MachineName)
+        @Html.HiddenFor(model => model.IsBanned)
+        @Html.HiddenFor(model => model.DomainName)
+        @Html.HiddenFor(model => model.ServiceUsersId)
+        <div class="form-group">
+            <div class="col-md-6">
+                <input type="submit" value="Confirm" class="btn btn-danger" />
+            </div>
+            <div class="col-md-6">
+                <a href="@Url.Action("ManageOrders")" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    }
+</div>

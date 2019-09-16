@@ -1,0 +1,37 @@
+﻿@model IEnumerable<BatemanCafeteria.Models.ApplicationUser>
+
+
+<h2>Manage Users</h2>
+<p>
+    @Html.ActionLink("<< Go back", "Index", "Admin")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteUser", new { id = item.Id }, new { @class = "modal-link" })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="btn btn-primary">
+    <a href="@Url.Action("AddUser", "Admin")">
+        <i class="glyphicon glyphicon-plus"></i>
+        <span>
+            <strong>Create</strong>
+        </span>
+    </a>
+</div>
+

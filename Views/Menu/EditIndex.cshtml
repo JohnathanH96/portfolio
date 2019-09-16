@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+    <div class="row flex" style="justify-content: center;">
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "Entrees" })">
+                <div class="box">
+                    <img src="~/Images/Burger.png" alt="Entrees" />
+                    <h3>Entrees</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "Breakfast" })">
+                <div class="box">
+                    <img src="~/Images/breakfast.png" alt="Breakfast" />
+                    <h3>Breakfast</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "Drinks" })">
+                <div class="box">
+                    <img src="~/Images/Hot drinks.png" alt="Drinks" />
+                    <h3>Drinks</h3>
+                </div>
+            </a>
+        </div>
+
+
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "Sides" })">
+                <div class="box">
+                    <img src="~/Images/Symbol 11 – 1.png" alt="Snacks" />
+                    <h3>Sides</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "Snacks" })">
+                <div class="box">
+                    <img src="~/Images/snacks.png" alt="Snacks" />
+                    <h3>Snacks</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 clickable padding-bottom-medium">
+            <a href="@Url.Action("EditMenu", "Menu", new { category = "DailySpecial" })">
+                <div class="box">
+                    <img src="~/Images/Symbol 13 – 1.png" alt="Daily Special" />
+                    <h3>Daily Special</h3>
+                </div>
+            </a>
+        </div>
+
+    </div>

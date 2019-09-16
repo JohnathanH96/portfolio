@@ -1,0 +1,145 @@
+﻿@model BatemanCafeteria.ViewModels.ManageOrdersViewModel
+
+<div class="col-md-4">
+    <div class="statusHeader">
+        <h3>Received</h3>
+        <hr />
+    </div>
+    @foreach (var item in Model.Received)
+    {
+        <div class="col-md-12 orderItem">
+            <div class="col-md-2 orderNum">
+                @Html.DisplayFor(model => item.InvoiceID)
+            </div>
+            <div class="vl"></div>
+            <a href="@Url.Action("ViewOrder", "Secretary", new { id = item.InvoiceID })" class="modal-link col-md-6">
+                <div class="col-md-12 customer-info">
+                    <div class="flex name">
+                        @Html.DisplayFor(model => item.Customer_name)
+                    </div>
+                    <div class="flex phone">
+                        @Html.DisplayFor(model => item.Customer_phone)
+                    </div>
+                </div>
+            </a>
+            <div class="vl"></div>
+
+            <div class="col-md-3">
+                @if (item.Order_total == 0.00M)
+                {
+                    <div class="orderNum">C</div>
+                }
+                else
+                {
+                    <div>
+                        $@Html.DisplayFor(model => item.Order_total)
+                    </div>
+                }
+            </div>
+            <div class="vl"></div>
+
+            <div class="col-md-1">
+                <a href="@Url.Action("ChangeStatus", new { id = item.InvoiceID.ToString() })">
+                    <span class="glyphicon glyphicon-triangle-right green" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<div class="col-md-4">
+    <div class="statusHeader">
+        <h3>Cooking</h3>
+        <hr />
+    </div>
+    @foreach (var item in Model.Cooking)
+    {
+        <div class="col-md-12 orderItem">
+            <div class="col-md-2 orderNum">
+                @Html.DisplayFor(model => item.InvoiceID)
+            </div>
+            <div class="vl"></div>
+            <a href="@Url.Action("ViewOrder", "Secretary", new { id = item.InvoiceID })" class="modal-link col-md-6">
+                <div class="col-md-12 customer-info">
+                    <div class="flex name">
+                        @Html.DisplayFor(model => item.Customer_name)
+                    </div>
+                    <div class="flex phone">
+                        @Html.DisplayFor(model => item.Customer_phone)
+                    </div>
+                </div>
+            </a>
+            <div class="vl"></div>
+
+            <div class="col-md-3">
+                @if (item.Order_total == 0.00M)
+                {
+                    <div class="orderNum">C</div>
+                }
+                else
+                {
+                    <div>
+                        $@Html.DisplayFor(model => item.Order_total)
+                    </div>
+                }
+            </div>
+            <div class="vl"></div>
+
+            <div class="col-md-1">
+                <a href="@Url.Action("ChangeStatus", new { id = item.InvoiceID.ToString() })">
+                    <span class="glyphicon glyphicon-triangle-right green" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+<div class="col-md-4">
+    <div class="statusHeader">
+        <h3>Ready For Pickup</h3>
+        <hr />
+    </div>
+    @foreach (var item in Model.ReadyForPickup)
+    {
+        <div class="col-md-12 orderItem">
+            <div class="col-md-2 orderNum">
+                @Html.DisplayFor(model => item.InvoiceID)
+            </div>
+            <div class="vl"></div>
+            <div class="col-md-6 customer-info">
+                <div class="flex name">
+                    @Html.DisplayFor(model => item.Customer_name)
+                </div>
+                <div class="flex phone">
+                    @Html.DisplayFor(model => item.Customer_phone)
+                </div>
+            </div>
+            <div class="vl"></div>
+
+            <div class="col-md-3">
+                @if (item.Order_total == 0.00M)
+                {
+                    <div class="orderNum">C</div>
+                }
+                else
+                {
+                    <div>
+                        $@Html.DisplayFor(model => item.Order_total)
+                    </div>
+                }
+            </div>
+            <div class="vl"></div>
+
+            <div class="col-md-1">
+                <a href="@Url.Action("ChangePaymentStatus", new { id = item.InvoiceID.ToString() })">
+                    @if (item.Payment_status == false)
+                    {
+                        <span class="glyphicon glyphicon-ok has-paid" aria-hidden="true"></span>
+                    }
+                    else
+                    {
+                        <span class=" glyphicon glyphicon-remove red" aria-hidden="true"></span>
+                    }
+                </a>
+            </div>
+        </div>
+    }
+</div>

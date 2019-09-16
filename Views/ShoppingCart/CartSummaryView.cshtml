@@ -1,0 +1,12 @@
+﻿<a href="@Url.Action("CartView", "ShoppingCart", new { id = "cart-status" })">
+    Cart
+    <img src="~/Images/shoppingBasket.png" class="cart" />
+    @if (ViewData["CartCount"].ToString() != "0")
+    {
+        <div class="item-count">
+            <p>
+                @ViewData["CartCount"]
+            </p>
+        </div>
+    }
+    </a>

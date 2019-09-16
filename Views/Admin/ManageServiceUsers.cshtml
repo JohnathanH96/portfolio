@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BatemanCafeteria.Models.Caf_ServiceUsers>
+
+@{
+    ViewBag.Title = "ManageServiceUsers";
+}
+
+<h2>Manage Service Users</h2>
+
+<p>
+    @Html.ActionLink("<< Go back", "Index", "Admin")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MachineName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DomainName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsBanned)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DomainName)
+            </td>
+            <td>
+                @Html.CheckBoxFor(modelItem => item.IsBanned, new { @id = item.Username })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    $(function () {
+        $(':checkbox').click(function () {
+            var id = this.id;
+            var link = '@Url.Action("BanUser", new { userName = "xxx" })'
+            link = link.replace("xxx", id);
+            console.log(link);
+            window.location = link;
+        });
+    });
+</script>

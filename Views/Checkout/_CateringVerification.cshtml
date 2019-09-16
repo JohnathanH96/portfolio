@@ -1,0 +1,31 @@
+﻿@model BatemanCafeteria.ViewModels.CateringVerficationViewModel
+@Html.Partial("_ModalExit")
+
+<div class="modal-body">
+    <h3>Please enter the verification code for this reservation.</h3>
+    <div>
+        <hr />
+        <div class="col-md-12">
+            <h4>This code can be found in the confirmation email sent when the reservation was made.</h4>
+        </div>
+        @using (Html.BeginForm("CateringVerification", "Checkout"))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="control-label col-md-2">Code</div>
+                @Html.EditorFor(model => model.VerificationCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VerificationCode, "", new { @class = "text-danger" })
+
+
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Submit" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

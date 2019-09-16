@@ -1,0 +1,63 @@
+﻿@model Int32
+
+@if (Model == -1) {
+    <div>
+        <div class="alert-danger">@ViewBag.Error</div>
+    </div>
+}
+else
+{
+    <div style="position: relative">
+        <div>
+            <div class="order-progress"></div>
+            <div class="order-progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="order-status">
+            <div id="received" class="status-node completed tool-tip">
+                <span class="tool-tip-text">Your order has been received.</span>
+                <p>1</p>
+            </div>
+            <div id="cooking" class="status-node tool-tip">
+                <span class="tool-tip-text">Your order is now cooking.</span>
+                <p>2</p>
+            </div>
+            <div id="ready-for-pickup" class="status-node tool-tip">
+                <span class="tool-tip-text">Your order is ready to be picked up!</span>
+                <p>3</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var interval
+    $(function () {
+        function update() {
+            $.post("/Home/GetStatus", { "id": @ViewBag.OrderNum }, function (data) {
+                if (data == 1) {
+                    $("#received").removeClass("completed");
+                    $("#received").addClass("completed");
+                } else if (data == 2) {
+                    $("#progress-bar").addClass("status-2");
+                    $("#received").removeClass("completed");
+                    $("#received").addClass("completed");
+                    $("#cooking").removeClass("completed");
+                    $("#cooking").addClass("completed");
+                } else if (data == 3) {
+                    $("#progress-bar").addClass("status-3");
+                    $("#received").removeClass("completed");
+                    $("#received").addClass("completed");
+                    $("#cooking").removeClass("completed");
+                    $("#cooking").addClass("completed");
+                    $("#ready-for-pickup").removeClass("completed");
+                    $("#ready-for-pickup").addClass("completed");
+                }
+            });
+        }
+        interval = setInterval(update, 30000);
+        update();
+        $("#submitButton").click(function () {
+            clearInterval(interval);
+        });
+    });
+    </script>
+}

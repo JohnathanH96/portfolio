@@ -1,0 +1,62 @@
+﻿@model BatemanCafeteria.Models.Caf_InvoiceModel
+
+@{
+    ViewBag.Title = "CheckoutConfirmation";
+}
+
+<h2>CheckoutConfirmation</h2>
+
+<div>
+    <h4>Caf_InvoiceModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer_phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer_phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Order_items)
+        </dt>
+        <dd>
+            @foreach (var item in Model.Order_items.ToList())
+            {
+
+                <p>@item.MenuItem.Title x @item.Quantity</p>
+
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Order_total)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Order_total)
+        </dd>
+
+    </dl>
+    <div class="btn btn-primary">@Html.ActionLink("Confirm", "Complete", "Checkout", Model)</div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.InvoiceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

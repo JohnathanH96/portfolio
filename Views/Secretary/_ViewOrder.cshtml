@@ -1,0 +1,144 @@
+﻿@model BatemanCafeteria.ViewModels.ViewOrderViewModel
+@Html.Partial("_ModalExit")
+
+<div class="modal-body">
+    <h4>Ticket #@Model.OrderId</h4>
+    <hr />
+    <div class="col-md-12">
+        <dl class="dl-horizontal col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+
+            <dd>
+                $@Html.DisplayFor(model => model.Total)
+            </dd>
+            @if (Model.Username != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.Username)
+                </dt>
+                <dd>
+                    @Html.ActionLink(Model.Username, "BanUser", new { userName = Model.Username })
+                </dd>
+            }
+
+        </dl>
+        @if (Model.CateringInfo != null)
+        {
+            <dl class="dl-horizontal col-md-6">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Room.room_name)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Room.room_name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Room.location)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Room.location)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CateringInfo.Time)
+                </dt>
+                <dd>
+                    @Model.CateringInfo.Time.ToString("h:mm tt")
+                </dd>
+                <dt>
+                    <label>Date</label>
+                </dt>
+                <dd>
+                    @Model.CateringInfo.Time.ToString("M/dd/yyyy")
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.CateringInfo.Instructions)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CateringInfo.Instructions)
+                </dd>
+            </dl>
+        }
+    </div>
+    <div class="items">
+        <table style="width: 100%">
+            <tr>
+                <th>
+                    Item
+                </th>
+                <th>
+                    Special Instructions
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @item.MenuItem.Title
+                    </td>
+                    <td>
+                        <span class="special-inst">@item.Special_instructions</span>
+                    </td>
+                    <td>
+                        x @item.Quantity
+                    </td>
+                    <td>
+                        $@item.UnitPrice
+
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-md-6">
+        <a href="@Url.Action("Edit", "Secretary", new { id = Model.OrderId })" class="btn btn-primary">Edit <i class="glyphicon glyphicon-edit"></i></a>
+    </div>
+    <div class="col-md-6">
+        <a data-id="@Model.OrderId" class="btn btn-danger inner-modal-link">Delete <i class="glyphicon glyphicon-trash"></i></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".inner-modal-link").click(function () {
+            var orderDelete = $(this).attr("data-id");
+            console.log(orderDelete);
+            if (orderDelete != null) {
+                $.get("/Secretary/DeleteOrder", { "id": orderDelete }, function (data) {
+                    $(".modal-content").html(data);
+                });
+            }
+
+        });
+    });
+</script>
